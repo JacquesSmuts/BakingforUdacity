@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Baking for Udacity</string>
+    <string name="error_message_title">Something went wrong.</string>
+    <string name="error_message_content">Please check your internet connection and try again.</string>
+    <string name="error_message_button">OK</string>
+
 </resources>
