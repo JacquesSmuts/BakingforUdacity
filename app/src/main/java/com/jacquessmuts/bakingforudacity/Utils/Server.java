@@ -39,7 +39,7 @@ public class Server {
             //loop through steps
             if (recipe.getSteps() != null){
                 for (Step step : recipe.getSteps()){
-                    if (TextUtils.isEmpty(step.getThumbnailURL())){
+                    if (!TextUtils.isEmpty(step.getThumbnailURL())){
                         return step.getThumbnailURL();
                     }
                 }

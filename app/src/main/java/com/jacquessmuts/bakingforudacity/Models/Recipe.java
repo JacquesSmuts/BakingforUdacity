@@ -16,6 +16,8 @@ import java.util.List;
 
 public class Recipe implements Parcelable {
 
+    public static final String RECIPE_ASSET_NAME = "baking.json";
+
     private Long id;
     private String image;
     private List<Ingredient> ingredients;
@@ -72,9 +74,8 @@ public class Recipe implements Parcelable {
     }
 
     public static ArrayList<Recipe> getAllFromJson(Context context){
-
-        ArrayList<Recipe> toReturn = new ArrayList<>();
-        String json = Util.loadJsonFromAsset("baking.json", context);
+        ArrayList<Recipe> toReturn;
+        String json = Util.loadJsonFromAsset(RECIPE_ASSET_NAME, context);
         toReturn = listFromJson(json);
         return toReturn;
     }

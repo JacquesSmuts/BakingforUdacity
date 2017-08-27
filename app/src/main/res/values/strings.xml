@@ -3,5 +3,6 @@
     <string name="error_message_title">Something went wrong.</string>
     <string name="error_message_content">Please check your internet connection and try again.</string>
     <string name="error_message_button">OK</string>
+    <string name="number_of_servings">%s Servings</string>
 
 </resources>

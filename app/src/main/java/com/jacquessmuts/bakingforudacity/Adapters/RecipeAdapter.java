@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.R;
@@ -55,20 +56,27 @@ public class RecipeAdapter extends RecyclerView.Adapter <RecipeAdapter.RecipeIte
     @Override
     public void onBindViewHolder(RecipeItemViewHolder recipeItemViewHolder, int position) {
 
+        Recipe model = mRecipeList.get(position);
+
         Context context = recipeItemViewHolder.image_recipe.getContext();
-        String url = Server.findFirstImageInStack(mRecipeList.get(position));
+        String url = Server.findFirstImageInStack(model);
         if (!TextUtils.isEmpty(url)) {
             Picasso.with(context)
                     .load(url)
                     .placeholder(android.R.drawable.ic_input_get)
                     .into(recipeItemViewHolder.image_recipe);
         }
+
+        recipeItemViewHolder.text_name.setText(model.getName());
+        recipeItemViewHolder.text_servings.setText(context.getString(R.string.number_of_servings, model.getServings()));
     }
 
 
     public class RecipeItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.image_recipe) ImageView image_recipe;
+        @BindView(R.id.text_name) TextView text_name;
+        @BindView(R.id.text_servings) TextView text_servings;
 
         public RecipeItemViewHolder(View view) {
             super(view);
