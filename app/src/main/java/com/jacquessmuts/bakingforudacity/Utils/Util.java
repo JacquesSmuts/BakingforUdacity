@@ -8,6 +8,9 @@ import android.util.DisplayMetrics;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jacquessmuts.bakingforudacity.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Created by Jacques Smuts on 2017/08/23.
  * Until they find a new home, random utils in here
@@ -30,6 +33,23 @@ public class Util {
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static String loadJsonFromAsset(String fileName, Context c) {
+        try {
+            InputStream is = c.getAssets().open(fileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String text = new String(buffer);
+
+            return text;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public static void errorMessageInternet(Context context){

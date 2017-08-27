@@ -1,9 +1,16 @@
 
 package com.jacquessmuts.bakingforudacity.Models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.jacquessmuts.bakingforudacity.Utils.Util;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +71,25 @@ public class Recipe implements Parcelable {
         this.steps = steps;
     }
 
+    public static ArrayList<Recipe> getAllFromJson(Context context){
+
+        ArrayList<Recipe> toReturn = new ArrayList<>();
+        String json = Util.loadJsonFromAsset("baking.json", context);
+        toReturn = listFromJson(json);
+        return toReturn;
+    }
+
+    public static ArrayList<Recipe> listFromJson(String jsonString){
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Recipe>>(){}.getType();
+        ArrayList<Recipe> recipes = null;
+        try {
+            recipes = gson.fromJson(jsonString, listType);
+        } catch (IllegalStateException e){
+            e.printStackTrace(); // probably not necessary?
+        }
+        return recipes;
+    }
 
     @Override
     public int describeContents() {

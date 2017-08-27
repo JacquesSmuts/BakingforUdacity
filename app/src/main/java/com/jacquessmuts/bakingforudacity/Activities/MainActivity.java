@@ -14,6 +14,8 @@ import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.R;
 import com.jacquessmuts.bakingforudacity.Utils.Util;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
@@ -35,13 +37,11 @@ public class MainActivity extends AppCompatActivity {
         Icepick.restoreInstanceState(this, savedInstanceState);
         ButterKnife.bind(this);
         setupRecyclerView();
+        getDataLocally();
 
-        if (savedInstanceState == null){
-            initialStartup();
-        } else {
+        if (savedInstanceState != null){
             mLayoutManager.scrollToPosition(scrollPosition);
             scrollPosition = -1;
-
         }
     }
 
@@ -54,10 +54,9 @@ public class MainActivity extends AppCompatActivity {
         Icepick.saveInstanceState(this, outState);
     }
 
-    private void initialStartup(){
-
-        //TODO: Build data from JSON file in res folder? Or find some other way to build the JSON file.
-
+    private void getDataLocally(){
+        ArrayList<Recipe> recipes = Recipe.getAllFromJson(this);
+        mRecipeAdapter.setData(recipes);
     }
 
     private void setupRecyclerView(){

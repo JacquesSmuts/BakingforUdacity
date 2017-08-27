@@ -8,7 +8,7 @@ public class Ingredient implements Parcelable {
 
     private String ingredient;
     private String measure;
-    private Long quantity;
+    private double quantity;
 
     public String getIngredient() {
         return ingredient;
@@ -26,11 +26,11 @@ public class Ingredient implements Parcelable {
         this.measure = measure;
     }
 
-    public Long getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
