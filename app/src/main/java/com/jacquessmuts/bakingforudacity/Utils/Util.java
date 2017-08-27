@@ -1,4 +1,4 @@
-package com.jacquessmuts.bakingforudacity;
+package com.jacquessmuts.bakingforudacity.Utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jacquessmuts.bakingforudacity.R;
 
 /**
  * Created by Jacques Smuts on 2017/08/23.
