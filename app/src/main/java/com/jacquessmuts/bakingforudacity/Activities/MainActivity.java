@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(Recipe recipe) {
-            //TODO: start detailed view activity
+            startActivity(RecipeDetailActivity.getIntent(MainActivity.this, recipe));
         }
     }
 

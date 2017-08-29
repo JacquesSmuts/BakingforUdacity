@@ -44,7 +44,7 @@ public class Ingredient implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.ingredient);
         dest.writeString(this.measure);
-        dest.writeValue(this.quantity);
+        dest.writeDouble(this.quantity);
     }
 
     public Ingredient() {
@@ -53,7 +53,7 @@ public class Ingredient implements Parcelable {
     protected Ingredient(Parcel in) {
         this.ingredient = in.readString();
         this.measure = in.readString();
-        this.quantity = (Long) in.readValue(Long.class.getClassLoader());
+        this.quantity = in.readDouble();
     }
 
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
