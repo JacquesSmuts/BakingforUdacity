@@ -3,7 +3,6 @@ package com.jacquessmuts.bakingforudacity.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,13 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jacquessmuts.bakingforudacity.Activities.RecipeDetailActivity;
+import com.jacquessmuts.bakingforudacity.Adapters.RecipeDetailAdapter;
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.Models.Step;
 import com.jacquessmuts.bakingforudacity.R;
-import com.jacquessmuts.bakingforudacity.Fragments.dummy.DummyContent;
-import com.jacquessmuts.bakingforudacity.Fragments.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +53,7 @@ public class RecipeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         ButterKnife.bind(this, view);
         recyclerview_steps.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerview_steps.setAdapter(new MyRecipeRecyclerViewAdapter(mRecipe.getSteps(), mListener));
+        recyclerview_steps.setAdapter(new RecipeDetailAdapter(mRecipe, mListener));
 
         return view;
     }
