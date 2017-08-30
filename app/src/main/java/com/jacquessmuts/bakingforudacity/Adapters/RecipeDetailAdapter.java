@@ -86,7 +86,6 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
                 break;
         }
 
-
     }
 
     @Override

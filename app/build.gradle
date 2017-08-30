@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.jacquessmuts.bakingforudacity"
         minSdkVersion 19
@@ -31,6 +31,8 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile "com.android.support:cardview-v7:$supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile "frankiesardo:icepick:$icePickVersion"
     provided "frankiesardo:icepick-processor:$icePickVersion"
     compile "com.jakewharton:butterknife:$butterknifeVersion"
@@ -40,8 +42,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.afollestad:sectioned-recyclerview:0.5.0'
+    compile 'com.google.android.exoplayer:exoplayer:r2.4.4'
     testCompile 'junit:junit:4.12'
 }

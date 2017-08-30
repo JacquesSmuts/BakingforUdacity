@@ -3,6 +3,7 @@ package com.jacquessmuts.bakingforudacity.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 public class Step implements Parcelable {
 
@@ -45,6 +46,11 @@ public class Step implements Parcelable {
     }
 
     public String getVideoURL() {
+
+        if (TextUtils.isEmpty(videoURL) && !TextUtils.isEmpty(thumbnailURL) ){
+            return thumbnailURL;
+        }
+
         return videoURL;
     }
 

@@ -1,0 +1,43 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.jacquessmuts.bakingforudacity.Fragments.StepDetailFragment"
+    android:padding="@dimen/margin_smallish">
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/exo_player_step"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_step_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/exo_player_step"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="This is a long list of words that describe the contents of the steps and what you should do. There is a video above this." />
+
+    <ImageView
+        android:id="@+id/image_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_step_description"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@android:drawable/ic_media_play"/>
+
+    <ImageView
+        android:id="@+id/image_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/image_left"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@android:drawable/ic_media_play"/>
+    
+
+</android.support.constraint.ConstraintLayout>
