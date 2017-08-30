@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
-import com.jacquessmuts.bakingforudacity.Fragments.RecipeFragment.OnListFragmentInteractionListener;
+import com.jacquessmuts.bakingforudacity.Fragments.RecipeDetailFragment.OnListFragmentInteractionListener;
 import com.jacquessmuts.bakingforudacity.Models.Ingredient;
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.Models.Step;
@@ -156,12 +156,12 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
                     layoutStep.setVisibility(View.GONE);
 
                     textIngredientName.setText(mIngredient.getIngredient());
-                    textQuantityMeasure.setText(mIngredient.getMeasure() + " - " + mIngredient.getQuantity());
+                    textQuantityMeasure.setText(mIngredient.getQuantity() + " - " + mIngredient.getMeasure());
                     break;
                 case STEP:
                     layoutHeader.setVisibility(View.GONE);
-                    layoutIngredient.setVisibility(View.VISIBLE);
-                    layoutStep.setVisibility(View.GONE);
+                    layoutIngredient.setVisibility(View.GONE);
+                    layoutStep.setVisibility(View.VISIBLE);
 
                     textStepName.setText(mStep.getShortDescription());
                     break;

@@ -11,10 +11,8 @@
         android:name="com.jacquessmuts.bakingforudacity.Fragments.RecipeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.jacquessmuts.bakingforudacity.Fragments.RecipeFragment"
+        tools:context="com.jacquessmuts.bakingforudacity.Fragments.RecipeDetailFragment"
         tools:listitem="@layout/list_item_recipe_detail" />
 
 </android.support.constraint.ConstraintLayout>

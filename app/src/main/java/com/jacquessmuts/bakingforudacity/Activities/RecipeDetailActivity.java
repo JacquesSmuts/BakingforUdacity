@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.jacquessmuts.bakingforudacity.Fragments.RecipeFragment;
+import com.jacquessmuts.bakingforudacity.Fragments.RecipeDetailFragment;
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.Models.Step;
 import com.jacquessmuts.bakingforudacity.R;
-import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
 import icepick.Icepick;
 import icepick.State;
 
-public class RecipeDetailActivity extends AppCompatActivity implements RecipeFragment.OnListFragmentInteractionListener {
+public class RecipeDetailActivity extends AppCompatActivity implements RecipeDetailFragment.OnListFragmentInteractionListener {
 
     public static final String EXTRA_RECIPE = "extra_recipe";
 

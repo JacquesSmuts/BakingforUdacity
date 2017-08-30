@@ -17,6 +17,7 @@ import com.jacquessmuts.bakingforudacity.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A fragment representing a list of Items.
@@ -24,12 +25,13 @@ import butterknife.ButterKnife;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class RecipeFragment extends Fragment {
+public class RecipeDetailFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
 
     @BindView(R.id.recyclerview_steps) RecyclerView recyclerview_steps;
 
+    private Unbinder mUnbinder;
     private Recipe mRecipe;
 
     public interface OnListFragmentInteractionListener {
@@ -39,7 +41,7 @@ public class RecipeFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public RecipeFragment() {
+    public RecipeDetailFragment() {
     }
 
     @Override
@@ -51,7 +53,7 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         recyclerview_steps.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerview_steps.setAdapter(new RecipeDetailAdapter(mRecipe, mListener));
 
@@ -76,6 +78,7 @@ public class RecipeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        mUnbinder.unbind();
     }
 
     private void handleExtras(Bundle extras){

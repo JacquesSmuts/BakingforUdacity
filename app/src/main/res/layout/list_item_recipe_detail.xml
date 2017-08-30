@@ -9,7 +9,9 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_ingredient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_smallish"
+        android:background="@color/primary_light">
 
         <TextView
             android:id="@+id/text_quantity_measure"
@@ -26,8 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/text_padding"
-            app:layout_constraintLeft_toLeftOf="@id/text_quantity_measure"
-            app:layout_constraintTop_toBottomOf="@id/text_quantity_measure"
+            app:layout_constraintTop_toTopOf="@id/text_quantity_measure"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/text_quantity_measure"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="Graham Cracker crumbs"/>
 
@@ -36,7 +39,9 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_step"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_smallish"
+        android:background="@color/primary_light">
 
         <ImageView
             android:id="@+id/image_right"
@@ -62,15 +67,23 @@
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="@dimen/margin_medium"
+        android:orientation="horizontal"
+        android:background="@color/primary">
 
         <TextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             style="@style/Base.TextAppearance.AppCompat.Headline"
             tools:text="Ingredients"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primary_dark"/>
 
 </LinearLayout>
