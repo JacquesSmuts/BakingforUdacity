@@ -48,7 +48,7 @@ public class StepDetailFragment extends Fragment {
     @BindView(R.id.image_right) ImageView imageRight;
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void newStepIndex(int index);
     }
 
     private Recipe mRecipe;
@@ -61,16 +61,6 @@ public class StepDetailFragment extends Fragment {
     private SimpleExoPlayer mPlayer;
 
     public StepDetailFragment() {
-        // Required empty public constructor
-    }
-
-    public static StepDetailFragment newInstance(Recipe recipe, int stepIndex) {
-        StepDetailFragment fragment = new StepDetailFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_RECIPE, recipe);
-        args.putInt(ARG_STEP_INDEX, stepIndex);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -83,7 +73,9 @@ public class StepDetailFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
         mBandwidthMeter = new DefaultBandwidthMeter();
-        mMediaDataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "mediaPlayerSample"), (TransferListener<? super DataSource>) mBandwidthMeter);
+        mMediaDataSourceFactory = new DefaultDataSourceFactory(getContext(),
+                Util.getUserAgent(getContext(), "mediaPlayerSample"),
+                (TransferListener<? super DataSource>) mBandwidthMeter);
 
         handleExtras(getActivity().getIntent().getExtras());
     }
@@ -120,7 +112,9 @@ public class StepDetailFragment extends Fragment {
                 mStepIndex++;
                 break;
         }
+        mListener.newStepIndex(mStepIndex);
         populateViews();
+        mPlayer.stop();
         handleVideo();
     }
 

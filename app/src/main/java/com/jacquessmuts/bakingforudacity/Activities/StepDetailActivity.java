@@ -71,7 +71,8 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void newStepIndex(int index) {
+        mStepIndex = index;
+        populateContents();
     }
 }
