@@ -37,7 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-
 public class StepDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_RECIPE = "arg_recipe";
@@ -75,16 +74,6 @@ public class StepDetailFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mRecipe = getArguments().getParcelable(ARG_RECIPE);
-            mStepIndex = getArguments().getInt(ARG_STEP_INDEX);
-        }
-    }
-
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -99,17 +88,6 @@ public class StepDetailFragment extends Fragment {
         handleExtras(getActivity().getIntent().getExtras());
     }
 
-    private void handleExtras(Bundle extras){
-
-        if (extras == null) return;
-
-        if (extras.containsKey(RecipeDetailActivity.EXTRA_RECIPE)){
-            mRecipe = extras.getParcelable(RecipeDetailActivity.EXTRA_RECIPE);
-        }
-
-        mStepIndex = extras.getInt(RecipeDetailActivity.EXTRA_STEP_INDEX, 0);
-        if (mStepIndex < 0) mStepIndex = 0;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,10 +114,26 @@ public class StepDetailFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_left:
+                mStepIndex--;
                 break;
             case R.id.image_right:
+                mStepIndex++;
                 break;
         }
+        populateViews();
+        handleVideo();
+    }
+
+    private void handleExtras(Bundle extras){
+
+        if (extras == null) return;
+
+        if (extras.containsKey(RecipeDetailActivity.EXTRA_RECIPE)){
+            mRecipe = extras.getParcelable(RecipeDetailActivity.EXTRA_RECIPE);
+        }
+
+        mStepIndex = extras.getInt(RecipeDetailActivity.EXTRA_STEP_INDEX, 0);
+        if (mStepIndex < 0) mStepIndex = 0;
     }
 
     private void releasePlayer() {
@@ -152,6 +146,19 @@ public class StepDetailFragment extends Fragment {
     private void populateViews(){
         Step currentStep = mRecipe.getSteps().get(mStepIndex);
         textStepDescription.setText(currentStep.getDescription());
+
+        if (mStepIndex < 1){
+            imageLeft.setVisibility(View.GONE);
+        } else {
+            imageLeft.setVisibility(View.VISIBLE);
+        }
+
+        if (mStepIndex >= (mRecipe.getSteps().size()-1)){
+            imageRight.setVisibility(View.GONE);
+        } else {
+            imageRight.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void handleVideo(){
@@ -163,8 +170,7 @@ public class StepDetailFragment extends Fragment {
         TrackSelector trackSelector =
                 new DefaultTrackSelector(videoTrackSelectionFactory);
         // 2. Create the player
-        mPlayer =
-                ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
+        mPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
 
         // Bind the player to the view.
         exoPlayerStep.setPlayer(mPlayer);

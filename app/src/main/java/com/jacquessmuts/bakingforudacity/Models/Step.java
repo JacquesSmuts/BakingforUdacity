@@ -58,6 +58,12 @@ public class Step implements Parcelable {
         this.videoURL = videoURL;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Step)) return false;
+
+        return (this.id == ((Step) obj).getId());
+    }
 
     @Override
     public int describeContents() {

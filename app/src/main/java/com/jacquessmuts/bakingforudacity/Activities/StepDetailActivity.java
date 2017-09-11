@@ -22,10 +22,13 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
 
     @State
     Recipe mRecipe;
+    @State
+    int mStepIndex;
 
     public static Intent getIntent(Context context, Recipe recipe, Step step){
         Intent intent = new Intent(context, StepDetailActivity.class);
         intent.putExtra(EXTRA_RECIPE, recipe);
+        int indexof = recipe.getSteps().indexOf(step);
         intent.putExtra(EXTRA_STEP_INDEX, recipe.getSteps().indexOf(step));
 
         return intent;
@@ -52,6 +55,9 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
         if (extras.containsKey(EXTRA_RECIPE)){
             mRecipe = extras.getParcelable(EXTRA_RECIPE);
         }
+        if (extras.containsKey(EXTRA_STEP_INDEX)){
+            mStepIndex = extras.getInt(EXTRA_STEP_INDEX, 0);
+        }
     }
 
     private void populateContents() {
@@ -59,8 +65,9 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
             finish();
             return;
         }
+        Step currentStep = mRecipe.getSteps().get(mStepIndex);
 
-        setTitle(mRecipe.getName());
+        setTitle(getString(R.string.step_title, mRecipe.getName(), currentStep.getShortDescription()));
     }
 
     @Override
