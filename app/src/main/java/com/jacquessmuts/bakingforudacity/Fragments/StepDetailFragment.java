@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import icepick.Icepick;
+import icepick.State;
 
 public class StepDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +49,9 @@ public class StepDetailFragment extends Fragment {
     @BindView(R.id.text_step_description) TextView textStepDescription;
     @BindView(R.id.image_left) ImageView imageLeft;
     @BindView(R.id.image_right) ImageView imageRight;
+
+    @State
+    long mPlayerPosition = -1;
 
     public interface OnFragmentInteractionListener {
         void newStepIndex(int index);
@@ -72,14 +78,19 @@ public class StepDetailFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mBandwidthMeter = new DefaultBandwidthMeter();
         mMediaDataSourceFactory = new DefaultDataSourceFactory(getContext(),
                 Util.getUserAgent(getContext(), "mediaPlayerSample"),
                 (TransferListener<? super DataSource>) mBandwidthMeter);
 
         handleExtras(getActivity().getIntent().getExtras());
+        Icepick.restoreInstanceState(this, savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +113,12 @@ public class StepDetailFragment extends Fragment {
         releasePlayer();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
+
     @OnClick({R.id.image_left, R.id.image_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -116,6 +133,12 @@ public class StepDetailFragment extends Fragment {
         populateViews();
         mPlayer.stop();
         handleVideo();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPlayerPosition = mPlayer.getCurrentPosition();
     }
 
     private void handleExtras(Bundle extras){
@@ -183,6 +206,11 @@ public class StepDetailFragment extends Fragment {
                 mMediaDataSourceFactory, extractorsFactory, null, null);
 
         mPlayer.prepare(mediaSource);
+
+        if (mPlayerPosition > 0){
+            mPlayer.seekTo(mPlayerPosition);
+            mPlayerPosition = -1;
+        }
 
     }
 

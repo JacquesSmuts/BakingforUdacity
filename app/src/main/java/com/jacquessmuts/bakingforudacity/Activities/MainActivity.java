@@ -23,6 +23,12 @@ import icepick.State;
 
 public class MainActivity extends AppCompatActivity {
 
+    //TODO: Create landscape layouts for everything
+    //TODO: make sure orientation changes works on every screen
+    //TODO: create tablet views for everything
+    //TODO: Espresso
+    //TODO: Widget
+
     @BindView(R.id.swiperefresh_home) SwipeRefreshLayout swiperefresh_home;
     @BindView(R.id.recyclerview_home) RecyclerView recyclerview_home;
     GridLayoutManager mLayoutManager;
