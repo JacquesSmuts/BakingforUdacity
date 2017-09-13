@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/recipe_detail_fragment"
+        android:name="com.jacquessmuts.bakingforudacity.Fragments.RecipeDetailFragment"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_recipe_list" />
+
+    <fragment
+        android:id="@+id/step_detail_fragment"
+        android:name="com.jacquessmuts.bakingforudacity.Fragments.StepDetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

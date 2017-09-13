@@ -26,6 +26,7 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
 
     private final Recipe mRecipe;
     private final OnListFragmentInteractionListener mListener;
+    private int mSelectedIndex =0;
 
     public enum Type {
         HEADER, INGREDIENT, STEP;
@@ -45,7 +46,6 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
 
     @Override
     public void onBindHeaderViewHolder(ViewHolder holder, int section, boolean expanded) {
-
         switch (section) {
             case POS_INGREDIENTS:
                 holder.setTitle("Ingredients");
@@ -73,6 +73,11 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
             case POS_STEPS:
                 holder.mStep = mRecipe.getSteps().get(relativePosition);
                 holder.setType(Type.STEP);
+                holder.mView.setSelected(false);
+                if (mSelectedIndex == relativePosition){
+                    holder.mView.setSelected(true);
+                    mSelectedIndex = -1;
+                }
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,6 +113,11 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
         return itemCount;
     }
 
+    public void setSelectedIndex(int mSelectedIndex) {
+        this.mSelectedIndex = mSelectedIndex;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends SectionedViewHolder {
 
         public final View mView;
@@ -134,6 +144,8 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
         public void setTitle(String title) {
             this.mTitle = title;
         }
+
+
 
         public void setType(Type type) {
             mType = type;

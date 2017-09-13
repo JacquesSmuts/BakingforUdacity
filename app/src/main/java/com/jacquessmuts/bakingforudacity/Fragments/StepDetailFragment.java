@@ -100,7 +100,7 @@ public class StepDetailFragment extends Fragment {
         mUnbinder = ButterKnife.bind(this, view);
 
         populateViews();
-        handleVideo();
+        setupVideo();
 
         return view;
     }
@@ -131,8 +131,7 @@ public class StepDetailFragment extends Fragment {
         }
         mListener.newStepIndex(mStepIndex);
         populateViews();
-        mPlayer.stop();
-        handleVideo();
+        handleVideoSource();
     }
 
     @Override
@@ -141,8 +140,13 @@ public class StepDetailFragment extends Fragment {
         mPlayerPosition = mPlayer.getCurrentPosition();
     }
 
-    private void handleExtras(Bundle extras){
+    public void setStepIndex(int mStepIndex) {
+        this.mStepIndex = mStepIndex;
+        populateViews();
+        handleVideoSource();
+    }
 
+    private void handleExtras(Bundle extras){
         if (extras == null) return;
 
         if (extras.containsKey(RecipeDetailActivity.EXTRA_RECIPE)){
@@ -180,7 +184,7 @@ public class StepDetailFragment extends Fragment {
 
     }
 
-    private void handleVideo(){
+    private void setupVideo(){
         // 1. Create a default TrackSelector
         Handler mainHandler = new Handler();
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
@@ -197,14 +201,16 @@ public class StepDetailFragment extends Fragment {
         exoPlayerStep.requestFocus();
 
         mPlayer.setPlayWhenReady(true);
-//        MediaSource mediaSource = new HlsMediaSource(Uri.parse("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"),
-//                mMediaDataSourceFactory, mainHandler, null);
+        handleVideoSource();
+    }
 
+    private void handleVideoSource(){
         DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
         MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(mRecipe.getSteps().get(mStepIndex).getVideoURL()),
                 mMediaDataSourceFactory, extractorsFactory, null, null);
 
+        mPlayer.stop();
         mPlayer.prepare(mediaSource);
 
         if (mPlayerPosition > 0){

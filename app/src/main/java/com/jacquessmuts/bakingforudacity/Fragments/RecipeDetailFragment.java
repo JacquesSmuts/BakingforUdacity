@@ -31,6 +31,8 @@ public class RecipeDetailFragment extends Fragment {
 
     @BindView(R.id.recyclerview_steps) RecyclerView recyclerview_steps;
 
+    RecipeDetailAdapter mRecipeDetailAdapter;
+
     private Unbinder mUnbinder;
     private Recipe mRecipe;
 
@@ -55,11 +57,11 @@ public class RecipeDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         recyclerview_steps.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerview_steps.setAdapter(new RecipeDetailAdapter(mRecipe, mListener));
+        mRecipeDetailAdapter = new RecipeDetailAdapter(mRecipe, mListener);
+        recyclerview_steps.setAdapter(mRecipeDetailAdapter);
 
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -81,14 +83,15 @@ public class RecipeDetailFragment extends Fragment {
         mUnbinder.unbind();
     }
 
-    private void handleExtras(Bundle extras){
+    public void setSelectedIndex (int index){
+        mRecipeDetailAdapter.setSelectedIndex(index);
+    }
 
+    private void handleExtras(Bundle extras){
         if (extras == null) return;
 
         if (extras.containsKey(RecipeDetailActivity.EXTRA_RECIPE)){
             mRecipe = extras.getParcelable(RecipeDetailActivity.EXTRA_RECIPE);
         }
-
     }
-
 }

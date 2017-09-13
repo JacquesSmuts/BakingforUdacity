@@ -23,9 +23,6 @@ import icepick.State;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO: Create landscape layouts for everything
-    //TODO: make sure orientation changes works on every screen
-    //TODO: create tablet views for everything
     //TODO: Espresso
     //TODO: Widget
 

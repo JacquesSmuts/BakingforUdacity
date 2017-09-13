@@ -39,9 +39,9 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_step"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:padding="@dimen/margin_smallish"
-        android:background="@color/primary_light">
+        android:background="@drawable/selector_recipe_background">
 
         <ImageView
             android:id="@+id/image_right"
