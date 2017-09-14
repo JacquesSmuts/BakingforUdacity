@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO: Espresso
     //TODO: Widget
+    //TODO: run all data management through a Service (and possibly content Provider)
 
     @BindView(R.id.swiperefresh_home) SwipeRefreshLayout swiperefresh_home;
     @BindView(R.id.recyclerview_home) RecyclerView recyclerview_home;
