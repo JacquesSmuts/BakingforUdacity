@@ -26,9 +26,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId, null, 0);
-        }
+        RecipeWidgetService.updateWidgetWithRecipe(context, 0, 0);
     }
 
     //Generally only called after widget is first added. Initial one-time setup here
@@ -37,9 +35,16 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         super.onEnabled(context);
     }
 
+    static void updateAppWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds,
+                                Recipe recipe, int ingredientIndex) {
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId, recipe, ingredientIndex);
+        }
+    }
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId,
                                 Recipe recipe, int ingredientIndex) {
-        Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        //Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
         RemoteViews rv = getIngredientRemoteView(context, recipe, ingredientIndex);
         appWidgetManager.updateAppWidget(appWidgetId, rv);
     }
@@ -69,8 +74,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.next_ingredient, pendingIntent);
         }
 
-
-        //TODO: run everything through a Service and/or contentprovider (RecipeService)
+        //TODO: add click events
 //        Intent nextIngredientIntent = new Intent(context, RecipeService.class);
 //        nextIngredientIntent.setAction(RecipeService.ACTION_WATER_PLANT);
 //        // Add the plant ID as extra to water only that plant when clicked
