@@ -75,6 +75,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         }
 
         //TODO: add click events
+        //TODO: improve the layout as well. It's horribly ugly.
 //        Intent nextIngredientIntent = new Intent(context, RecipeService.class);
 //        nextIngredientIntent.setAction(RecipeService.ACTION_WATER_PLANT);
 //        // Add the plant ID as extra to water only that plant when clicked
