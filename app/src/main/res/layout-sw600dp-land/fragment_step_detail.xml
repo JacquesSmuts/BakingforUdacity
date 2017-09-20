@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/text_step_description"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:src="@android:drawable/ic_media_play"/>
+        android:src="@drawable/ic_arrow_back_black_24dp"/>
 
     <ImageView
         android:id="@+id/image_right"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/image_left"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@android:drawable/ic_media_play"/>
+        android:src="@drawable/ic_arrow_forward_black_24dp"/>
 
 
 </android.support.constraint.ConstraintLayout>

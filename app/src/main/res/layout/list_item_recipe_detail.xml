@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@android:drawable/ic_media_play"/>
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
 
         <TextView
             android:id="@+id/text_step_name"
