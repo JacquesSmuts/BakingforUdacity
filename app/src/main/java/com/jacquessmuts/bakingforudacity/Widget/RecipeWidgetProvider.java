@@ -68,20 +68,23 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
             views.setTextViewText(R.id.widget_recipe_name, recipe.getName());
             Ingredient ingredient = recipe.getIngredients().get(ingredientIndex);
             if (ingredient != null) {
-                views.setTextViewText(R.id.widget_ingredient_name, ingredient.getMeasure() + " " + ingredient.getIngredient());
+                views.setTextViewText(R.id.widget_ingredient_name, ingredient.getQuantity() + ingredient.getMeasure() + " " + ingredient.getIngredient());
             }
 
             views.setOnClickPendingIntent(R.id.next_ingredient, pendingIntent);
         }
 
-        //TODO: add click events
-        //TODO: improve the layout as well. It's horribly ugly.
-//        Intent nextIngredientIntent = new Intent(context, RecipeService.class);
-//        nextIngredientIntent.setAction(RecipeService.ACTION_WATER_PLANT);
-//        // Add the plant ID as extra to water only that plant when clicked
-//        wateringIntent.putExtra(RecipeService.EXTRA_PLANT_ID, plantId);
-//        PendingIntent wateringPendingIntent = PendingIntent.getService(context, 0, wateringIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        views.setOnClickPendingIntent(R.id.widget_water_button, wateringPendingIntent);
+        views.setOnClickPendingIntent(R.id.previous_recipe, PendingIntent.getService(context, 0,
+                RecipeWidgetService.getIntent(context, -1, 0), PendingIntent.FLAG_UPDATE_CURRENT));
+        views.setOnClickPendingIntent(R.id.next_recipe, PendingIntent.getService(context, 1,
+                RecipeWidgetService.getIntent(context, 1, 0), PendingIntent.FLAG_UPDATE_CURRENT));
+
+
+        views.setOnClickPendingIntent(R.id.previous_ingredient, PendingIntent.getService(context, 2,
+                RecipeWidgetService.getIntent(context, 0, -1), PendingIntent.FLAG_UPDATE_CURRENT));
+        views.setOnClickPendingIntent(R.id.next_ingredient, PendingIntent.getService(context, 3,
+                RecipeWidgetService.getIntent(context, 0, 1), PendingIntent.FLAG_UPDATE_CURRENT));
+
         return views;
     }
 }

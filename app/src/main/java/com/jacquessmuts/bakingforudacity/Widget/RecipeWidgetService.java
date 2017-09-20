@@ -27,6 +27,14 @@ public class RecipeWidgetService extends IntentService {
         super("RecipeWidgetService");
     }
 
+    public static Intent getIntent(Context context, int recipeOperator, int ingredientOperator){
+        Intent intent = new Intent(context, RecipeWidgetService.class);
+        intent.setAction(RecipeWidgetService.ACTION_UPDATE_WIDGET);
+        intent.putExtra(EXTRA_RECIPE_OPERATOR, recipeOperator);
+        intent.putExtra(EXTRA_INGREDIENT_OPERATOR, ingredientOperator);
+        return intent;
+    }
+
     /**
      * Operators are -1, 0, 1, indicating whether to add, substract or ignore current index
      * @see IntentService
@@ -53,6 +61,7 @@ public class RecipeWidgetService extends IntentService {
 
     private void updateWidget(int recipeOperator, int ingredientOperator) {
 
+        ArrayList<Recipe> recipes = Recipe.getAllFromJson(this);
         PreferencesManager.initializeInstance(this);
         int recipeIndex = PreferencesManager.getInstance().getWidgetRecipeIndex();
         int ingredientIndex = PreferencesManager.getInstance().getWidgetIngredientIndex();
@@ -60,11 +69,26 @@ public class RecipeWidgetService extends IntentService {
         recipeIndex += recipeOperator;
         ingredientIndex += ingredientOperator;
 
+        if (recipeIndex >= recipes.size()){
+            recipeIndex = 0;
+        }
+        if (recipeIndex < 0) {
+            recipeIndex = recipes.size()-1;
+        }
+        Recipe recipe = recipes.get(recipeIndex);
+
+        if (recipeOperator != 0){
+            ingredientIndex = 0;
+        }
+        if (ingredientIndex >= recipe.getIngredients().size()){
+            ingredientIndex = 0;
+        }
+        if (ingredientIndex < 0) {
+            ingredientIndex = recipe.getIngredients().size()-1;
+        }
+
         PreferencesManager.getInstance().setWidgetRecipeIndex(recipeIndex);
         PreferencesManager.getInstance().setWidgetIngredientIndex(ingredientIndex);
-
-        ArrayList<Recipe> recipes = Recipe.getAllFromJson(this);
-        Recipe recipe = recipes.get(recipeIndex);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeWidgetProvider.class));
