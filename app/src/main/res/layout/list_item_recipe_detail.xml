@@ -9,7 +9,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_ingredient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/list_item_height"
         android:padding="@dimen/margin_smallish"
         android:background="@color/primary_light">
 
@@ -39,7 +39,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_step"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/list_item_height"
         android:padding="@dimen/margin_smallish"
         android:background="@drawable/selector_recipe_background">
 

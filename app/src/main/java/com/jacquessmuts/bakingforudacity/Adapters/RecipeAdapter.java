@@ -63,7 +63,7 @@ public class RecipeAdapter extends RecyclerView.Adapter <RecipeAdapter.RecipeIte
         if (!TextUtils.isEmpty(url)) {
             Picasso.with(context)
                     .load(url)
-                    .placeholder(android.R.drawable.ic_input_get)
+                    .placeholder(R.drawable.ic_restaurant_menu_black)
                     .into(recipeItemViewHolder.image_recipe);
         }
 

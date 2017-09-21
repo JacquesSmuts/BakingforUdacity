@@ -19,7 +19,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:background="@color/transparent"
-            android:src="@android:drawable/picture_frame"
+            android:src="@drawable/ic_restaurant_menu_black"
             android:minHeight="@dimen/min_size_large"
             android:minWidth="@dimen/min_size_large"
             android:padding="@dimen/grid_layout_padding"
