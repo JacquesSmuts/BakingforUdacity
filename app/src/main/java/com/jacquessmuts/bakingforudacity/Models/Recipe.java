@@ -86,7 +86,7 @@ public class Recipe implements Parcelable {
         ArrayList<Recipe> recipes = null;
         try {
             recipes = gson.fromJson(jsonString, listType);
-            //GSON does not read Unicode correctly. Not sure what the best solution for that is...
+            //TODO: GSON does not read Unicode correctly. Not sure what the best solution for that is...
         } catch (IllegalStateException e){
             e.printStackTrace();
         }
