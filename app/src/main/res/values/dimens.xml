@@ -12,4 +12,5 @@
     <dimen name="min_size_large">100dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="margin_smallish">6dp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
 </resources>

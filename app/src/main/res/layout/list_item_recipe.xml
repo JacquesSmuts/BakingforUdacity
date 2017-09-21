@@ -31,6 +31,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/image_recipe"
             app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
             android:padding="@dimen/margin_small"
             tools:text="2-4 Servings"
             />
@@ -42,6 +44,8 @@
             app:layout_constraintTop_toTopOf="@id/text_servings"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/text_servings"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
             android:gravity="left"
             android:padding="@dimen/margin_small"
             tools:text="Name of Recipe"/>

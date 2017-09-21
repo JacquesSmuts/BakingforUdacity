@@ -28,9 +28,7 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
     public static Intent getIntent(Context context, Recipe recipe, Step step){
         Intent intent = new Intent(context, StepDetailActivity.class);
         intent.putExtra(EXTRA_RECIPE, recipe);
-        int indexof = recipe.getSteps().indexOf(step);
         intent.putExtra(EXTRA_STEP_INDEX, recipe.getSteps().indexOf(step));
-
         return intent;
     }
 
@@ -38,6 +36,7 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         handleExtras();
         Icepick.restoreInstanceState(this, savedInstanceState);
@@ -48,6 +47,12 @@ public class StepDetailActivity extends AppCompatActivity implements StepDetailF
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     private void handleExtras(){

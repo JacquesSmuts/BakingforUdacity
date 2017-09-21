@@ -15,6 +15,7 @@ import com.jacquessmuts.bakingforudacity.Models.Ingredient;
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.Models.Step;
 import com.jacquessmuts.bakingforudacity.R;
+import com.jacquessmuts.bakingforudacity.Utils.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +75,7 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
                 holder.mStep = mRecipe.getSteps().get(relativePosition);
                 holder.setType(Type.STEP);
                 holder.mView.setSelected(false);
-                if (mSelectedIndex == relativePosition){
+                if (Util.isTablet(holder.mView.getContext()) && mSelectedIndex == relativePosition){
                     holder.mView.setSelected(true);
                     mSelectedIndex = -1;
                 }
@@ -167,7 +168,7 @@ public class RecipeDetailAdapter extends SectionedRecyclerViewAdapter<RecipeDeta
                     layoutStep.setVisibility(View.GONE);
 
                     textIngredientName.setText(mIngredient.getIngredient());
-                    textQuantityMeasure.setText(mIngredient.getQuantity() + " - " + mIngredient.getMeasure());
+                    textQuantityMeasure.setText(textQuantityMeasure.getResources().getString(R.string.ingredient_with_unit, mIngredient.getQuantity(), mIngredient.getMeasure()));
                     break;
                 case STEP:
                     layoutHeader.setVisibility(View.GONE);

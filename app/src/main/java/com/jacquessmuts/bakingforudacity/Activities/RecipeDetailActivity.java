@@ -23,9 +23,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     @State
     Recipe mRecipe;
 
-    // Track whether to display a two-pane or single-pane UI (Tablet/Phone)
-    private boolean mIsTablet;
-
     public static Intent getIntent(Context context, Recipe recipe){
         Intent intent = new Intent(context, RecipeDetailActivity.class);
         intent.putExtra(EXTRA_RECIPE, recipe);
@@ -36,6 +33,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         handleExtras();
         Icepick.restoreInstanceState(this, savedInstanceState);
@@ -48,12 +46,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         Icepick.saveInstanceState(this, outState);
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
     private void handleExtras(){
         Bundle extras = getIntent().getExtras();
         if (extras.containsKey(EXTRA_RECIPE)){
             mRecipe = extras.getParcelable(EXTRA_RECIPE);
         }
-        mIsTablet = getResources().getBoolean(R.bool.isTablet);
     }
 
     private void populateContents(){
