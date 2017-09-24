@@ -92,6 +92,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
     @Override
     public void newStepIndex(int index) {
-
+        StepDetailFragment stepDetailFragment = (StepDetailFragment) getSupportFragmentManager().findFragmentById(R.id.step_detail_fragment);
+        if (stepDetailFragment != null){
+            stepDetailFragment.setStepIndex(index);
+        }
     }
 }

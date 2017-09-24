@@ -47,7 +47,7 @@
         android:id="@+id/image_right"
         android:layout_width="@dimen/arrow_height"
         android:layout_height="@dimen/arrow_height"
-        app:layout_constraintTop_toTopOf="@id/image_left"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/ic_arrow_forward_black_24dp"/>
     
