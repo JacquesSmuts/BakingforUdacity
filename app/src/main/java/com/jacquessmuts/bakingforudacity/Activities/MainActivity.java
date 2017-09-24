@@ -12,18 +12,21 @@ import android.view.View;
 import com.jacquessmuts.bakingforudacity.Adapters.RecipeAdapter;
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.R;
+import com.jacquessmuts.bakingforudacity.Utils.Server;
 import com.jacquessmuts.bakingforudacity.Utils.Util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
 import icepick.State;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-    //TODO: Espresso
 
     @BindView(R.id.swiperefresh_home) SwipeRefreshLayout swiperefresh_home;
     @BindView(R.id.recyclerview_home) RecyclerView recyclerview_home;
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Icepick.restoreInstanceState(this, savedInstanceState);
         ButterKnife.bind(this);
         setupRecyclerView();
-        getDataLocally();
+        getRecipesFromUrl();
 
         if (savedInstanceState != null){
             mLayoutManager.scrollToPosition(scrollPosition);
@@ -56,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
         Icepick.saveInstanceState(this, outState);
     }
 
-    private void getDataLocally(){
-        ArrayList<Recipe> recipes = Recipe.getAllFromJson(this);
-        mRecipeAdapter.setData(recipes);
+    private void getRecipesFromUrl(){
+        if (Util.getConnected(this)){
+            swiperefresh_home.setRefreshing(true);
+            Server.getRecipes(new GetRecipesListener());
+        } else {
+            handleServerSuccess(false);
+        }
     }
+
 
     private void setupRecyclerView(){
         int columns = 1;
@@ -80,7 +88,36 @@ public class MainActivity extends AppCompatActivity {
 
         mRecipeAdapter = new RecipeAdapter(new OnRecipeItemClickListener());
         recyclerview_home.setAdapter(mRecipeAdapter);
+    }
 
+    public void handleServerResponse(final String response){
+
+        //runOnUiThread needs to be done because the adapter's notifydatasetchanged only works on UI thread
+        MainActivity.this.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                final ArrayList<Recipe> recipes = Recipe.listFromJson(response);
+                handleServerSuccess(recipes != null && recipes.size() > 0);
+                mRecipeAdapter.setData(recipes);
+                swiperefresh_home.setRefreshing(false);
+                //TODO: save recipes to Database so that the Widget can access them
+            }
+        });
+    }
+
+    private void handleServerSuccess(boolean success){
+        if (!success){
+            Util.errorMessageInternet(this);
+        }
+    }
+
+    private class GetRecipesListener implements Server.ServerListener{
+
+        @Override
+        public void serverResponse(String response) {
+            handleServerResponse(response);
+        }
     }
 
     private class OnRecipeItemClickListener implements RecipeAdapter.RecipeItemOnClickListener {

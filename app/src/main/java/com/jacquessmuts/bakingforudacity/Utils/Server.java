@@ -24,6 +24,8 @@ public class Server {
 
     private static final String TAG = "Network Operation";
 
+    private static final String RECIPE_URL = "http://go.udacity.com/android-baking-app-json";
+
     private static OkHttpClient mClient = new OkHttpClient();
 
     public interface ServerListener{
@@ -49,13 +51,15 @@ public class Server {
         return url;
     }
 
+    public static void getRecipes(ServerListener listener){
+        doRequest(RECIPE_URL, listener);
+    }
 
-    private static void doRequest(String url, int pageNumber, final ServerListener listener) {
+
+
+    private static void doRequest(String url, final ServerListener listener) {
         Log.i(TAG, "url=" + url);
-//        String finalUrl = url+API_KEY_APPEND;
-//        if (pageNumber > 1){
-//            finalUrl += PAGE_NUMBER + pageNumber;
-//        }
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -70,10 +74,6 @@ public class Server {
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-//                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-//                    //System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-//                }
                 String responseString = response.body().string();
                 Log.i(TAG, "response=" + responseString);
                 listener.serverResponse(responseString);

@@ -73,12 +73,12 @@ public class Recipe implements Parcelable {
         this.steps = steps;
     }
 
-    public static ArrayList<Recipe> getAllFromJson(Context context){
-        ArrayList<Recipe> toReturn;
-        String json = Util.loadJsonFromAsset(RECIPE_ASSET_NAME, context);
-        toReturn = listFromJson(json);
-        return toReturn;
-    }
+//    public static ArrayList<Recipe> getAllFromJson(Context context){
+//        ArrayList<Recipe> toReturn;
+//        String json = Util.loadJsonFromAsset(RECIPE_ASSET_NAME, context);
+//        toReturn = listFromJson(json);
+//        return toReturn;
+//    }
 
     public static ArrayList<Recipe> listFromJson(String jsonString){
         Gson gson = new Gson();

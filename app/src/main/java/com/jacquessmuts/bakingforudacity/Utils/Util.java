@@ -35,23 +35,6 @@ public class Util {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    public static String loadJsonFromAsset(String fileName, Context c) {
-        try {
-            InputStream is = c.getAssets().open(fileName);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String text = new String(buffer);
-
-            return text;
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     public static void errorMessageInternet(Context context){
         new MaterialDialog.Builder(context)
                 .title(R.string.error_message_title)
