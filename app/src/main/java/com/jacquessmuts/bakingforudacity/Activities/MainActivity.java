@@ -12,6 +12,7 @@ import android.view.View;
 import com.jacquessmuts.bakingforudacity.Adapters.RecipeAdapter;
 import com.jacquessmuts.bakingforudacity.Models.Recipe;
 import com.jacquessmuts.bakingforudacity.R;
+import com.jacquessmuts.bakingforudacity.Utils.PreferencesManager;
 import com.jacquessmuts.bakingforudacity.Utils.Server;
 import com.jacquessmuts.bakingforudacity.Utils.Util;
 
@@ -101,7 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 handleServerSuccess(recipes != null && recipes.size() > 0);
                 mRecipeAdapter.setData(recipes);
                 swiperefresh_home.setRefreshing(false);
-                //TODO: save recipes to Database so that the Widget can access them
+
+                PreferencesManager.initializeInstance(MainActivity.this);
+                PreferencesManager.getInstance().setRecipes(recipes);
             }
         });
     }

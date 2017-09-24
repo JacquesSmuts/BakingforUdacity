@@ -61,8 +61,8 @@ public class RecipeWidgetService extends IntentService {
 
     private void updateWidget(int recipeOperator, int ingredientOperator) {
 
-        ArrayList<Recipe> recipes = new ArrayList<>(); //TODO: get recipes from database
         PreferencesManager.initializeInstance(this);
+        ArrayList<Recipe> recipes = PreferencesManager.getInstance().getRecipes();
         int recipeIndex = PreferencesManager.getInstance().getWidgetRecipeIndex();
         int ingredientIndex = PreferencesManager.getInstance().getWidgetIngredientIndex();
 
