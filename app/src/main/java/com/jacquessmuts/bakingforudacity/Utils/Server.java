@@ -32,30 +32,49 @@ public class Server {
         void serverResponse(String response);
     }
 
+    /**
+     * Returns the url for the thumbnail image from a given Step.
+     * @param step
+     * @return
+     */
+    public static String findThumbnailImageFromStep(Step step){
+        return step.getThumbnailURL();
+    }
+
+    /**
+     * This function gives an image for a recipe. Specifically the first image it can find in the stack.
+     * Slightly pointless since all recipes are without images.
+     * If you want to get the thumbnailURL for a given step, do not use this function.
+     * Instead, use findThumbnailImageFromStep
+     * @param recipe
+     * @return
+     */
     public static String findFirstImageInStack(Recipe recipe){
 
         String url = "";
         url = recipe.getImage();
 
-        if (TextUtils.isEmpty(url)){
+        //sometimes (always) the recipe has no image. In that case:
+        if (TextUtils.isEmpty(url)){ //recipe has no images
             //loop through steps
             if (recipe.getSteps() != null){
                 for (Step step : recipe.getSteps()){
-                    if (!TextUtils.isEmpty(step.getThumbnailURL())){
-                        return step.getThumbnailURL();
+                    if (!TextUtils.isEmpty(step.getThumbnailURL())){ //if there is a thumbnail URL
+                        return step.getThumbnailURL(); //set the image as the thumbnail URL
                     }
                 }
             }
         }
 
-        return url;
+        //In the case that both the recipe and one of the steps has a relevant image,
+        // only the recipe image will display. That is by design.
+
+        return url; //return an imageURL of whatever you can find
     }
 
     public static void getRecipes(ServerListener listener){
         doRequest(RECIPE_URL, listener);
     }
-
-
 
     private static void doRequest(String url, final ServerListener listener) {
         Log.i(TAG, "url=" + url);

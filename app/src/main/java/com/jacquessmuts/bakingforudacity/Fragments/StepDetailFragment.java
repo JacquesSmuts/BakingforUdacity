@@ -100,9 +100,24 @@ public class StepDetailFragment extends Fragment {
         mUnbinder = ButterKnife.bind(this, view);
 
         populateViews();
-        setupVideo();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            setupVideo();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Util.SDK_INT <= 23 || mPlayer == null)) {
+            setupVideo();
+        }
     }
 
     @Override
@@ -110,7 +125,14 @@ public class StepDetailFragment extends Fragment {
         super.onDetach();
         mListener = null;
         mUnbinder.unbind();
-        releasePlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
     }
 
     @Override
@@ -138,6 +160,9 @@ public class StepDetailFragment extends Fragment {
     public void onPause() {
         super.onPause();
         mPlayerPosition = mPlayer.getCurrentPosition();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
     }
 
     public void setStepIndex(int mStepIndex) {
