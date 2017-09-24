@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.jacquessmuts.bakingforudacity.Fragments.StepDetailFragment"
-    android:padding="@dimen/margin_smallish">
+    tools:context="com.jacquessmuts.bakingforudacity.Fragments.StepDetailFragment">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/exo_player_step"
